@@ -19,7 +19,8 @@ export abstract class AbstractRepostory<T extends AbstractEntity<T>> {
   async create(
     entity: Omit<T, 'id' | 'createdAt' | 'updatedAt' | 'generateId'>,
   ): Promise<T> {
-    return this.entityManager.save(entity as T);
+    const entityInstance = this.entityRepository.create(entity as T);
+    return this.entityManager.save(entityInstance);
   }
 
   async findOne(
@@ -60,4 +61,7 @@ export abstract class AbstractRepostory<T extends AbstractEntity<T>> {
   async findOneAndDelete(where: FindOptionsWhere<T>) {
     await this.entityRepository.delete(where);
   }
+
+  // TODO: paginate method
+  // TODO: autocomplete method
 }
