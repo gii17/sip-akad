@@ -9,9 +9,9 @@ const dataSource = new DataSource({
   password: '',
   database: 'sip_akad',
   synchronize: true,
-  entities: [join(__dirname, '../modules/**/entity/*.entity{.ts,.js}')],
+  entities: [join(__dirname, '../../modules/**/entities/*.entity{.ts,.js}')],
   relationLoadStrategy: 'query',
-  migrations: [join(__dirname, '../modules/**/migrations/*{.ts,.js}')],
+  migrations: [join(__dirname, '../../modules/**/migrations/*{.ts,.js}')],
   migrationsTableName: 'migrations',
 });
 
