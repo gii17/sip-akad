@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { readdirSync } from 'fs';
 import { join } from 'path';
+import dataSource from './common/config/connection.config';
 
 const modules = readdirSync(join(__dirname, 'modules'))
     .map(folder => {
@@ -14,6 +15,11 @@ const modules = readdirSync(join(__dirname, 'modules'))
     .filter(m => m !== null);
 
   @Module({
-    imports: [...modules],
+    imports: [
+      ...modules,
+      TypeOrmModule.forRoot({
+        dataSource,
+      }),
+    ],
   })
   export class AppModule {}
