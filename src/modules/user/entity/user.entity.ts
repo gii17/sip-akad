@@ -1,8 +1,8 @@
+import { AbstractEntity } from 'src/common/database/abstract.entity';
 import { Entity, Column } from 'typeorm';
-import { BaseEntity } from '../../../common/entities/base.entity';
 
 @Entity()
-export class UserEntity extends BaseEntity {
+export class UserEntity extends AbstractEntity<UserEntity> {
   @Column()
   username: string;
 

@@ -5,9 +5,13 @@ import {
   BeforeInsert,
 } from 'typeorm';
 
-export abstract class BaseEntity {
+export abstract class AbstractEntity<T> {
   @PrimaryColumn()
   id: string;
+
+  constructor(partial: Partial<T>) {
+    Object.assign(this, partial);
+  }
 
   @CreateDateColumn()
   createdAt: Date;
