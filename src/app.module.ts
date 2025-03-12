@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import dataSource from './common/config/connection.config';
+import dataSource from './config/database.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SilabusModule } from './modules/silabus/silabus.module';
 import { UserModule } from './modules/user/user.module';
