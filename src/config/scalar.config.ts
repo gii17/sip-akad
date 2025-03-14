@@ -5,6 +5,14 @@ import { apiReference } from '@scalar/nestjs-api-reference';
 const config = new DocumentBuilder()
   .setTitle('SIAKAD')
   .setDescription('Siakad API Documentation')
+  .addBearerAuth(
+    {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+    },
+    'access-token',
+  )
   .setVersion('1.0')
   .build();
 
