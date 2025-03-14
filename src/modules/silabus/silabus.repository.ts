@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AbstractRepostory } from 'src/common/database/abstract.repository';
 import { EntityManager, Repository, SelectQueryBuilder } from 'typeorm';
@@ -20,7 +25,7 @@ export class SilabusRepository extends AbstractRepostory<Silabus> {
   async beforeCreate(entity: Silabus): Promise<void> {
     // Contoh validasi sebelum create
     if (entity.mapel_id === 1) {
-      throw new BadRequestException('Mapel tidak ditemukan');
+      throw new InternalServerErrorException('Mapel tidak ditemukan');
     }
   }
 

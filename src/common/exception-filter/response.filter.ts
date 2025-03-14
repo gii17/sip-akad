@@ -24,7 +24,7 @@ export class ResponseFilter implements ExceptionFilter {
         : exceptionResponse;
 
     if (statusCode === 500) {
-      this.logger.fatal(exception.message);
+      this.logger.fatal(exception);
     }
 
     response.status(statusCode).json({
