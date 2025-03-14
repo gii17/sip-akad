@@ -21,9 +21,14 @@ export abstract class AbstractRepostory<T extends AbstractEntity<T>> {
     this.tableName = entityRepository.metadata.tableName;
   }
 
+  // buat validasi sebelum create
+  async beforeCreate(entity: T) {}
+
   async create(
     entity: Omit<T, 'id' | 'createdAt' | 'updatedAt' | 'generateId'>,
   ): Promise<T> {
+    await this.beforeCreate(entity as T);
+
     const entityInstance = this.entityRepository.create(entity as T);
     return this.entityManager.save(entityInstance);
   }
@@ -42,10 +47,15 @@ export abstract class AbstractRepostory<T extends AbstractEntity<T>> {
     return entity;
   }
 
+  // buat validasi sebelum update
+  async beforeUpdate(entity: T) {}
+
   async findOneAndUpdate(
     where: FindOptionsWhere<T>,
     partialEntity: QueryDeepPartialEntity<T>,
   ) {
+    await this.beforeUpdate(partialEntity as T);
+
     const updateResult = await this.entityRepository.update(
       where,
       partialEntity,

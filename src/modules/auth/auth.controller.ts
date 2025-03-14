@@ -9,11 +9,12 @@ import {
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LocalAuthGuard } from './guard/local-auth.guard';
-import { User } from '../../common/decorator/user.decorator';
+import { User } from 'src/common/decorator/user.decorator';
 import { IUser } from './interface/auth.interface';
 import { ApiBody } from '@nestjs/swagger';
 import { LoginDto } from './dto/login.dto';
 import { Public } from 'src/common/decorator/public.decorator';
+import { ResponseFormat } from 'src/common/decorator/response-format.decorator';
 
 @Public()
 @Controller('auth')
@@ -22,6 +23,7 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('register')
+  @ResponseFormat({ message: 'Register success' })
   register(@Body() registerDto: RegisterDto) {
     return this.authService.register(registerDto);
   }
@@ -32,6 +34,7 @@ export class AuthController {
   @ApiBody({
     type: LoginDto,
   })
+  @ResponseFormat({ message: 'Login success' })
   login(@User() user: IUser) {
     return this.authService.signToken(user);
   }

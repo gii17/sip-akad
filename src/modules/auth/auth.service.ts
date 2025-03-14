@@ -17,6 +17,8 @@ export class AuthService {
   ) {}
 
   async register(registerDto: RegisterDto) {
+    console.log(registerDto);
+
     try {
       const hashedPassword = await hash(registerDto.password, 10);
       const user = await this.userRepository.create({
@@ -30,7 +32,7 @@ export class AuthService {
       return await this.signToken(user);
     } catch (error) {
       if (error.code === 'ER_DUP_ENTRY' || error.code === 1062) {
-        throw new ConflictException('Username already exists');
+        throw new ConflictException('Email already exists');
       }
       throw error;
     }

@@ -23,31 +23,31 @@ import { ResponseFormat } from 'src/common/decorator/response-format.decorator';
 export class SilabusController {
   constructor(private readonly silabusService: SilabusService) {}
 
-  @ResponseFormat({ message: 'Success create silabus' })
+  @ResponseFormat({ entity: 'silabus', actionType: 'create' })
   @Post()
   create(@Body() createSilabusDto: CreateSilabusDto) {
     return this.silabusService.create(createSilabusDto);
   }
 
-  @ResponseFormat({ message: 'Success get all silabus' })
+  @ResponseFormat({ entity: 'silabus', actionType: 'read' })
   @Get()
   findAll(@Query() findAllSilabusDto: FindAllSilabusDto) {
     return this.silabusService.findAll(findAllSilabusDto);
   }
 
-  @ResponseFormat({ message: 'Success get one silabus' })
+  @ResponseFormat({ entity: 'silabus', actionType: 'read' })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.silabusService.findOne(id);
   }
 
-  @ResponseFormat({ message: 'Success update silabus' })
+  @ResponseFormat({ entity: 'silabus', actionType: 'update' })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateSilabusDto: UpdateSilabusDto) {
     return this.silabusService.update(id, updateSilabusDto);
   }
 
-  @ResponseFormat({ message: 'Success delete silabus' })
+  @ResponseFormat({ entity: 'silabus', actionType: 'delete' })
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.silabusService.remove(id);
