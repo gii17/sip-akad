@@ -1,5 +1,6 @@
 import { AbstractEntity } from './abstract.entity';
 import { Logger, NotFoundException } from '@nestjs/common';
+import { paginate } from 'nestjs-typeorm-paginate';
 import {
   EntityManager,
   FindOptionsRelations,
@@ -7,14 +8,18 @@ import {
   Repository,
 } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { AbstractFindAllDto } from '../dto/abstract-find-all.dto';
 
 export abstract class AbstractRepostory<T extends AbstractEntity<T>> {
   protected abstract readonly logger: Logger;
+  protected readonly tableName: string;
 
   constructor(
     private readonly entityRepository: Repository<T>,
     private readonly entityManager: EntityManager,
-  ) {}
+  ) {
+    this.tableName = entityRepository.metadata.tableName;
+  }
 
   async create(
     entity: Omit<T, 'id' | 'createdAt' | 'updatedAt' | 'generateId'>,
@@ -26,7 +31,7 @@ export abstract class AbstractRepostory<T extends AbstractEntity<T>> {
   async findOne(
     where: FindOptionsWhere<T>,
     relations?: FindOptionsRelations<T>,
-  ): Promise<T> {
+  ) {
     const entity = await this.entityRepository.findOne({ where, relations });
 
     if (!entity) {
@@ -40,7 +45,7 @@ export abstract class AbstractRepostory<T extends AbstractEntity<T>> {
   async findOneAndUpdate(
     where: FindOptionsWhere<T>,
     partialEntity: QueryDeepPartialEntity<T>,
-  ): Promise<T> {
+  ) {
     const updateResult = await this.entityRepository.update(
       where,
       partialEntity,
@@ -59,9 +64,31 @@ export abstract class AbstractRepostory<T extends AbstractEntity<T>> {
   }
 
   async findOneAndDelete(where: FindOptionsWhere<T>) {
-    await this.entityRepository.delete(where);
+    const deleteResult = await this.entityRepository.delete(where);
+
+    if (!deleteResult.affected) {
+      this.logger.warn('Entity not found with where', where);
+      throw new NotFoundException('Entity not found');
+    }
+
+    return !!deleteResult.affected;
   }
 
-  // TODO: paginate method
+  async findAll(findAllDto: AbstractFindAllDto) {
+    const page = findAllDto.page || 1;
+    const limit = findAllDto.limit || 10;
+
+    const queryBuilder = this.selectFindAll(findAllDto);
+    return await paginate<T>(queryBuilder, { page, limit });
+  }
+
+  // kalau mau join"an override method ini
+  // kalau ada property tambahan di dto nya, type nya pakai yang itu aja
+  // misalnya ada property "type_id" di dto SilabusFindAllDto
+  // biar bisa query where
+  selectFindAll(findAllDto: AbstractFindAllDto) {
+    return this.entityRepository.createQueryBuilder();
+  }
+
   // TODO: autocomplete method
 }
