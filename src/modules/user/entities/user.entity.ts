@@ -1,8 +1,9 @@
 import { AbstractEntity } from 'src/common/database/abstract.entity';
+import { TRole } from 'src/modules/auth/interface/auth.interface';
 import { Entity, Column } from 'typeorm';
 
-@Entity()
-export class UserEntity extends AbstractEntity<UserEntity> {
+@Entity({ name: 'users' })
+export class User extends AbstractEntity<User> {
   @Column()
   username: string;
 
@@ -12,6 +13,18 @@ export class UserEntity extends AbstractEntity<UserEntity> {
   @Column()
   password: string;
 
-  @Column()
-  lastToken: string;
+  @Column({
+    type: 'varchar',
+    length: 255,
+    nullable: true,
+    default: null,
+  })
+  lastToken: string | null;
+
+  @Column({
+    type: 'enum',
+    enum: ['mahasiswa', 'dosen', 'akademik'],
+    default: 'mahasiswa',
+  })
+  role: TRole;
 }
