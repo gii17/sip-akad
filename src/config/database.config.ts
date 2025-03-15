@@ -8,7 +8,7 @@ const dataSource = new DataSource({
   username: process.env.DB_USERNAME || 'root',
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'sip_akad',
-  synchronize: process.env.NODE_ENV === 'development',
+  synchronize: process.env.NODE_ENV == 'development',
   entities: [join(__dirname, '../modules/**/entities/*.entity{.ts,.js}')],
   relationLoadStrategy: 'query',
   migrations: [join(__dirname, '../modules/**/migrations/*{.ts,.js}')],
