@@ -27,6 +27,6 @@ export class RegisterDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  @IsIn(['mahasiswa', 'dosen', 'admin'])
+  @IsIn(['mahasiswa', 'dosen', 'akademik'])
   role: TRole;
 }
