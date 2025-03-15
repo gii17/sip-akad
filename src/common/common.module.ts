@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { ResponseInterceptor } from './interceptor/response.interceptor';
 import { ResponseFilter } from './exception-filter/response.filter';
@@ -13,6 +13,10 @@ import { ResponseFilter } from './exception-filter/response.filter';
       provide: APP_FILTER,
       useClass: ResponseFilter,
     },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ClassSerializerInterceptor,
+    }
   ],
 })
 export class CommonModule {}
