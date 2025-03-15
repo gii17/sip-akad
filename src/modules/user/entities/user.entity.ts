@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { AbstractEntity } from 'src/common/database/abstract.entity';
 import { TRole } from 'src/modules/auth/interface/auth.interface';
 import { Entity, Column } from 'typeorm';
@@ -10,6 +11,7 @@ export class User extends AbstractEntity<User> {
   @Column({ unique: true })
   email: string;
 
+  @Exclude()
   @Column()
   password: string;
 
