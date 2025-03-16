@@ -8,6 +8,7 @@ import { CommonModule } from './common/common.module';
 import { ConfigModule } from '@nestjs/config';
 import { RoomModule } from './modules/room/room.module';
 import { BuildingModule } from './modules/building/building.module';
+import { ScheduleModule } from './modules/schedule/schedule.module';
 import Joi from 'joi';
 
 @Module({
@@ -32,6 +33,7 @@ import Joi from 'joi';
     CommonModule,
     RoomModule,
     BuildingModule,
+    ScheduleModule,
   ],
 })
 export class AppModule {}
