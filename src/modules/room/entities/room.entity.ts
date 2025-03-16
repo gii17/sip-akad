@@ -20,7 +20,7 @@ export class Room extends AbstractEntity<Room> {
     @JoinColumn({ name: 'building_id' })
     building: Building;
 
-    @Column({ type: 'varchar', length: 255 })
-    status: string;
+    @Column({ type: 'smallint' })
+    status: number;
 
 }
