@@ -12,8 +12,8 @@ export class ResponseFilter implements ExceptionFilter {
   private readonly logger = new Logger(ResponseFilter.name);
 
   catch(exception: HttpException, host: ArgumentsHost) {
-    const ctx = host.switchToHttp();
-    const response = ctx.getResponse<Response>();
+    const ctx        = host.switchToHttp();
+    const response   = ctx.getResponse<Response>();
     const statusCode = exception.getStatus();
 
     const exceptionResponse = exception.getResponse();

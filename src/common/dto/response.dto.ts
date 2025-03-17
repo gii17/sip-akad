@@ -24,7 +24,7 @@ export class ResponseDto {
 
   constructor(param: PropReponseDto) {
     if ('entity' in param && 'actionType' in param) {
-      this.entity = param.entity;
+      this.entity     = param.entity;
       this.actionType = param.actionType;
     } else if ('message' in param) {
       this.message = param.message;

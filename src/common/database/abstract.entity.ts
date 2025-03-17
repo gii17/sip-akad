@@ -1,7 +1,7 @@
 import {
   UpdateDateColumn,
   PrimaryColumn,
-  CreateDateColumn,
+
   BeforeInsert,
 } from 'typeorm';
 

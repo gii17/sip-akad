@@ -23,7 +23,6 @@ export class SilabusRepository extends AbstractRepostory<Silabus> {
   }
 
   async beforeCreate(entity: Silabus): Promise<void> {
-    // Contoh validasi sebelum create
     if (entity.mapel_id === 1) {
       throw new InternalServerErrorException('Mapel tidak ditemukan');
     }
