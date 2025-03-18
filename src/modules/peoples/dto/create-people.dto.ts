@@ -6,9 +6,9 @@ export class CreatePeopleDto {
   @IsNotEmpty()
   name: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  reference_id: number;
+  reference_id: string;
 
   @IsString()
   @IsNotEmpty()

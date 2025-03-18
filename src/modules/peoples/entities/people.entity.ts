@@ -35,7 +35,7 @@ export class People extends AbstractEntity<People> {
     type: 'integer',
     nullable: false,
   })
-  religion: bigint;
+  religion: number;
 
   @OneToOne(() => Student, (student) => student.people, { eager: true })
   @JoinColumn({ name: 'reference_id', referencedColumnName: 'id' })
