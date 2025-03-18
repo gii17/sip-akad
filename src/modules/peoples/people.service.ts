@@ -35,4 +35,8 @@ export class PeopleService {
   async remove(id: string) {
     return await this.peopleRepository.findOneAndDelete({ id });
   }
+
+  async findOneWithRelations(id: string) {
+    return this.peopleRepository.findOneWithRelations(id);
+  }
 }

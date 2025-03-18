@@ -10,6 +10,7 @@ import { RoomModule } from './modules/room/room.module';
 import { BuildingModule } from './modules/building/building.module';
 import { ScheduleModule } from './modules/schedule/schedule.module';
 import { ScheduleDetailsModule } from './modules/schedule_details/schedule_details.module';
+import { EmployeeModule } from './modules/employee/employee.module';
 import Joi from 'joi';
 
 @Module({
@@ -36,6 +37,7 @@ import Joi from 'joi';
     BuildingModule,
     ScheduleModule,
     ScheduleDetailsModule,
+    EmployeeModule,
   ],
 })
 export class AppModule {}
