@@ -2,6 +2,7 @@ import { AbstractEntity } from 'src/common/database/abstract.entity';
 import { TRole } from 'src/modules/auth/interface/auth.interface';
 import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
 import { Employee } from 'src/modules/employee/entities/employee.entity';
+import { Students } from 'src/modules/students/entities/student.entity';
 
 @Entity({ name: 'peoples' })
 export class People extends AbstractEntity<People> {
@@ -37,9 +38,13 @@ export class People extends AbstractEntity<People> {
   })
   religion: number;
 
-  @OneToOne(() => Student, (student) => student.people, { eager: true })
+  @OneToOne(() => Students, (students) => students.people, { eager: true })
   @JoinColumn({ name: 'reference_id', referencedColumnName: 'id' })
-  student?: Student;
+  students?: Students;
+
+  @OneToOne(() => Students, (student) => student.people, { eager: true })
+  @JoinColumn({ name: 'reference_id', referencedColumnName: 'id' })
+  student?: Students;
 
   @OneToOne(() => Employee, (employee) => employee.people, { eager: true })
   @JoinColumn({ name: 'reference_id', referencedColumnName: 'id' })
