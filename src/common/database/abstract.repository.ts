@@ -24,9 +24,7 @@ export abstract class AbstractRepostory<T extends AbstractEntity<T>> {
   // buat validasi sebelum create
   async beforeCreate(entity: T) {}
 
-  async create(
-    entity: Omit<T, 'id' | 'createdAt' | 'updatedAt' | 'generateId'>,
-  ): Promise<T> {
+  async create(entity: Partial<T>): Promise<T> {
     await this.beforeCreate(entity as T);
 
     const entityInstance = this.entityRepository.create(entity as T);

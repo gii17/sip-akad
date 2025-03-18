@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { EmployeeRepository } from './employee.repository';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import { FindAllEmployeeDto } from './dto/find-all-employee.dto';
 
 @Injectable()
 export class EmployeeService {
@@ -11,8 +12,8 @@ export class EmployeeService {
     return await this.employeeRepository.create(createEmployeeDto);
   }
 
-  async findAll() {
-    return this.employeeRepository.findAll({});
+  async findAll(findAllEmployeeDto: FindAllEmployeeDto) {
+    return this.employeeRepository.findAll(findAllEmployeeDto);
   }
 
   findOne(id: string) {

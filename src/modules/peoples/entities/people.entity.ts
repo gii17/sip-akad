@@ -1,7 +1,6 @@
 import { AbstractEntity } from 'src/common/database/abstract.entity';
 import { TRole } from 'src/modules/auth/interface/auth.interface';
 import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
-import { Student } from 'src/modules/students/entities/student.entity';
 import { Employee } from 'src/modules/employee/entities/employee.entity';
 
 @Entity({ name: 'peoples' })
@@ -17,14 +16,14 @@ export class People extends AbstractEntity<People> {
 
   @Column({
     type: 'integer',
-    nullable: false
+    nullable: false,
   })
-  sex: integer;
+  sex: number;
 
   @Column({
-      type: 'date',
+    type: 'date',
   })
-  dob: date ;
+  dob: Date;
 
   @Column({
     type: 'text',
@@ -34,7 +33,7 @@ export class People extends AbstractEntity<People> {
 
   @Column({
     type: 'integer',
-    nullable: false
+    nullable: false,
   })
   religion: bigint;
 

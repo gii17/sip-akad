@@ -8,8 +8,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { PeopleService } from './people.service';
-import { FindAllUserDto } from './dto/find-all-people.dto';
-import { UpdateUserDto } from './dto/update-people.dto';
+import { FindAllPeopleDto } from './dto/find-all-people.dto';
+import { UpdatePeopleDto } from './dto/update-people.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { ResponseFormat } from 'src/common/decorator/response-format.decorator';
 
@@ -20,8 +20,8 @@ export class PeopleController {
 
   @ResponseFormat({ actionType: 'read', entity: 'people' })
   @Get()
-  findAll(@Query() findAllUserDto: FindAllUserDto) {
-    return this.peopleService.findAll(findAllUserDto);
+  findAll(@Query() findAllPeopleDto: FindAllPeopleDto) {
+    return this.peopleService.findAll(findAllPeopleDto);
   }
 
   @ResponseFormat({ actionType: 'read', entity: 'people' })
@@ -32,7 +32,7 @@ export class PeopleController {
 
   @ResponseFormat({ actionType: 'update', entity: 'people' })
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  update(@Param('id') id: string, @Body() updateUserDto: UpdatePeopleDto) {
     return this.peopleService.update(id, updateUserDto);
   }
 
