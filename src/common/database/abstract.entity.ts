@@ -1,8 +1,8 @@
 import {
   UpdateDateColumn,
   PrimaryColumn,
-
   BeforeInsert,
+  CreateDateColumn,
 } from 'typeorm';
 
 export abstract class AbstractEntity<T> {
