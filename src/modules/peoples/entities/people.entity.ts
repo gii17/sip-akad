@@ -38,15 +38,19 @@ export class People extends AbstractEntity<People> {
   })
   religion: number;
 
-  @OneToOne(() => Students, (students) => students.people, { eager: true })
-  @JoinColumn({ name: 'reference_id', referencedColumnName: 'id' })
-  students?: Students;
-
   @OneToOne(() => Students, (student) => student.people, { eager: true })
-  @JoinColumn({ name: 'reference_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'reference_id',
+    referencedColumnName: 'id',
+    foreignKeyConstraintName: 'FK_student_people',
+  })
   student?: Students;
 
   @OneToOne(() => Employee, (employee) => employee.people, { eager: true })
-  @JoinColumn({ name: 'reference_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'reference_id',
+    referencedColumnName: 'id',
+    foreignKeyConstraintName: 'FK_employee_people',
+  })
   employee?: Employee;
 }
