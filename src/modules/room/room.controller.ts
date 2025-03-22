@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { RoomService } from './room.service';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
@@ -6,6 +6,7 @@ import { Role } from 'src/common/decorator/role.decorator';
 import { RoleEnum } from '../auth/interface/auth.interface';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { ResponseFormat } from 'src/common/decorator/response-format.decorator';
+import { FindAllSilabusDto } from '../silabus/dto/find-all-silabus.dto';
 @Role(RoleEnum.Dosen)
 @ApiBearerAuth('access-token')
 @Controller('room')
@@ -20,8 +21,8 @@ export class RoomController {
 
   @ResponseFormat({ entity: 'room', actionType: 'read' })
   @Get()
-  findAll() {
-    return this.roomService.findAll();
+  findAll(@Query() findAllSilabusDto: FindAllSilabusDto) {
+    return this.roomService.findAll(findAllSilabusDto);
   }
 
   @ResponseFormat({ entity: 'room', actionType: 'read' })
@@ -39,6 +40,6 @@ export class RoomController {
   @ResponseFormat({ entity: 'room', actionType: 'delete' })
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.roomService.remove(+id);
+    return this.roomService.remove(id);
   }
 }
