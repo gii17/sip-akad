@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBuildingDto } from './dto/create-building.dto';
 import { UpdateBuildingDto } from './dto/update-building.dto';
+import { BuildingRepository } from './building.repository';
 
 @Injectable()
 export class BuildingService {
+
+  constructor(private readonly buildingRepository: BuildingRepository){}
+  
   create(createBuildingDto: CreateBuildingDto) {
     return 'This action adds a new building';
   }

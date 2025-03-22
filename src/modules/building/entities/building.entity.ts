@@ -12,7 +12,7 @@ export class Building extends AbstractEntity<Building> {
     @Column({ type: 'varchar', length: 255 })
     floor: string;
 
-    @Column({ type: 'varchar', length: 255 })
+    @Column({ type: 'smallint' })
     status: string;
 
 }
