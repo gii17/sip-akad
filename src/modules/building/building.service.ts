@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateBuildingDto } from './dto/create-building.dto';
 import { UpdateBuildingDto } from './dto/update-building.dto';
 import { BuildingRepository } from './building.repository';
+import { FindAllBuildingDto } from './dto/find-all-building.dto';
 
 @Injectable()
 export class BuildingService {
@@ -9,22 +10,22 @@ export class BuildingService {
   constructor(private readonly buildingRepository: BuildingRepository){}
   
   create(createBuildingDto: CreateBuildingDto) {
-    return 'This action adds a new building';
+    return this.buildingRepository.create(createBuildingDto);
   }
 
-  findAll() {
-    return `This action returns all building`;
+  findAll(findAllSilabusDto: FindAllBuildingDto) {
+    return this.buildingRepository.findAll(findAllSilabusDto);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} building`;
+  findOne(id: string) {
+    return this.buildingRepository.findOne({ id });
   }
 
-  update(id: number, updateBuildingDto: UpdateBuildingDto) {
-    return `This action updates a #${id} building`;
+  update(id: string, updateBuildingDto: UpdateBuildingDto) {
+    return this.buildingRepository.findOneAndUpdate({ id }, updateBuildingDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} building`;
+  remove(id: string) {
+    return this.buildingRepository.findOneAndDelete({ id });
   }
 }

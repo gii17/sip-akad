@@ -8,7 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AbstractRepostory } from 'src/common/database/abstract.repository';
 import { EntityManager, Repository, SelectQueryBuilder } from 'typeorm';
 import { Building } from './entities/building.entity';
-// import { FindAllSilabusDto } from './dto/find-all-room.dto';
+import { FindAllBuildingDto } from './dto/find-all-building.dto';
 
 @Injectable()
 export class BuildingRepository extends AbstractRepostory<Building> {
@@ -21,4 +21,10 @@ export class BuildingRepository extends AbstractRepostory<Building> {
   ) {
     super(buildingRepository, entityManager);
   }
+
+  selectFindAll(
+      FindAllBuildingDto: FindAllBuildingDto,
+    ): SelectQueryBuilder<Building> {
+      return this.buildingRepository.createQueryBuilder('building');
+    }
 }
