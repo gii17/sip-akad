@@ -35,10 +35,11 @@ export abstract class AbstractRepostory<T extends AbstractEntity<T>> {
   async findOne(
     where: FindOptionsWhere<T>,
     relations?: FindOptionsRelations<T>,
+    throwWhenNotFound = true,
   ) {
     const entity = await this.entityRepository.findOne({ where, relations });
 
-    if (!entity) {
+    if (!entity && throwWhenNotFound) {
       this.logger.warn(`${this.tableName} not found with where`, where);
       throw new NotFoundException(`${this.tableName} not found`);
     }
