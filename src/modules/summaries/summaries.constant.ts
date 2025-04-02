@@ -1,0 +1,1 @@
+export const SUMMARIES_MODEL_CODE = 'STUDENT';

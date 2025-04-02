@@ -12,6 +12,8 @@ import { ScheduleModule } from './modules/schedule/schedule.module';
 import { ScheduleDetailsModule } from './modules/schedule_details/schedule_details.module';
 import { EmployeeModule } from './modules/employee/employee.module';
 import { StudentsModule } from './modules/students/students.module';
+import { SummariesModule } from './modules/summaries/summaries.module';
+import { StudentPeriodicsModule } from './modules/student-periodics/student-periodics.module';
 import Joi from 'joi';
 
 @Module({
@@ -40,6 +42,8 @@ import Joi from 'joi';
     ScheduleDetailsModule,
     EmployeeModule,
     StudentsModule,
+    SummariesModule,
+    StudentPeriodicsModule,
   ],
 })
 export class AppModule {}
