@@ -18,7 +18,8 @@ export abstract class AbstractRepostory<T extends AbstractEntity<T>> {
     private readonly entityRepository: Repository<T>,
     private readonly entityManager: EntityManager,
   ) {
-    this.tableName = entityRepository.metadata.tableName;
+    const tableName = entityRepository.metadata.tableName;
+    this.tableName = tableName.charAt(0).toUpperCase() + tableName.slice(1);
   }
 
   // buat validasi sebelum create
@@ -38,8 +39,8 @@ export abstract class AbstractRepostory<T extends AbstractEntity<T>> {
     const entity = await this.entityRepository.findOne({ where, relations });
 
     if (!entity) {
-      this.logger.warn('Entity not found with where', where);
-      throw new NotFoundException('Entity not found');
+      this.logger.warn(`${this.tableName} not found with where`, where);
+      throw new NotFoundException(`${this.tableName} not found`);
     }
 
     return entity;
@@ -60,8 +61,8 @@ export abstract class AbstractRepostory<T extends AbstractEntity<T>> {
     );
 
     if (!updateResult.affected) {
-      this.logger.warn('Entity not found with where', where);
-      throw new NotFoundException('Entity not found');
+      this.logger.warn(`${this.tableName} not found with where`, where);
+      throw new NotFoundException(`${this.tableName} not found`);
     }
 
     return this.findOne(where);
@@ -75,16 +76,16 @@ export abstract class AbstractRepostory<T extends AbstractEntity<T>> {
     const deleteResult = await this.entityRepository.delete(where);
 
     if (!deleteResult.affected) {
-      this.logger.warn('Entity not found with where', where);
-      throw new NotFoundException('Entity not found');
+      this.logger.warn(`${this.tableName} not found with where`, where);
+      throw new NotFoundException(`${this.tableName} not found`);
     }
 
     return !!deleteResult.affected;
   }
 
   async findAll(findAllDto: AbstractFindAllDto) {
-    const page = findAllDto.page || 1;
-    const limit = findAllDto.limit || 10;
+    const page = findAllDto?.page || 1;
+    const limit = findAllDto?.limit || 10;
 
     const queryBuilder = this.selectFindAll(findAllDto);
     return await paginate<T>(queryBuilder, { page, limit });
