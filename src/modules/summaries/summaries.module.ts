@@ -10,5 +10,6 @@ import { StudentsModule } from '../students/students.module';
   imports: [TypeOrmModule.forFeature([Summary]), StudentsModule],
   controllers: [SummariesController],
   providers: [SummariesService, SummaryRepository],
+  exports: [SummaryRepository],
 })
 export class SummariesModule {}
