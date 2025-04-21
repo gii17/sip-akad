@@ -44,9 +44,13 @@ export abstract class AbstractRepository<T extends AbstractEntity<T>> {
 
   async findOne(
     where: FindOptionsWhere<T>,
-    relations?: FindOptionsRelations<T>,
-    throwWhenNotFound = true,
+    options: {
+      relations?: FindOptionsRelations<T>;
+      throwWhenNotFound?: boolean;
+    } = {},
   ) {
+    const { relations, throwWhenNotFound = true } = options;
+
     const entity = await this.entityRepository.findOne({ where, relations });
 
     if (!entity && throwWhenNotFound) {
@@ -115,7 +119,7 @@ export abstract class AbstractRepository<T extends AbstractEntity<T>> {
     where: FindOptionsWhere<T>,
     data: Partial<T>,
   ): Promise<T> {
-    const entity = await this.findOne(where, {}, false);
+    const entity = await this.findOne(where, { throwWhenNotFound: false });
 
     if (entity) {
       return entity;
