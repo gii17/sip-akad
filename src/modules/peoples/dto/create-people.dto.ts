@@ -3,6 +3,7 @@ import { Type } from 'class-transformer';
 import {
   IsDate,
   IsDateString,
+  IsIn,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -20,7 +21,8 @@ export class CreatePeopleDto {
 
   @IsString()
   @IsNotEmpty()
-  reference_type: string;
+  @IsIn(['employee', 'student'])
+  reference_type: 'employee' | 'student';
 
   @ApiProperty()
   @IsNumber()

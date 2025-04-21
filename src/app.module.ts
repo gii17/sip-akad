@@ -15,20 +15,21 @@ import { StudentsModule } from './modules/students/students.module';
 import { SummariesModule } from './modules/summaries/summaries.module';
 import { StudentPeriodicsModule } from './modules/student-periodics/student-periodics.module';
 import Joi from 'joi';
+import { PeopleModule } from './modules/peoples/people.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       validationSchema: Joi.object({
-        DB_HOST        : Joi.string().required(),
-        DB_PORT        : Joi.number().required(),
-        DB_USERNAME    : Joi.string().required(),
-        DB_PASSWORD    : Joi.string().allow('').default(null),
-        DB_DATABASE    : Joi.string().required(),
-        PORT           : Joi.number().required(),
-        JWT_SECRET     : Joi.string().required(),
-        JWT_EXPIRES_IN : Joi.string().required(),
-        NODE_ENV       : Joi.string().required(),
+        DB_HOST: Joi.string().required(),
+        DB_PORT: Joi.number().required(),
+        DB_USERNAME: Joi.string().required(),
+        DB_PASSWORD: Joi.string().allow('').default(null),
+        DB_DATABASE: Joi.string().required(),
+        PORT: Joi.number().required(),
+        JWT_SECRET: Joi.string().required(),
+        JWT_EXPIRES_IN: Joi.string().required(),
+        NODE_ENV: Joi.string().required(),
       }),
     }),
     TypeOrmModule.forRoot(dataSource.options),
@@ -41,6 +42,7 @@ import Joi from 'joi';
     ScheduleModule,
     ScheduleDetailsModule,
     EmployeeModule,
+    PeopleModule,
     StudentsModule,
     SummariesModule,
     StudentPeriodicsModule,

@@ -10,7 +10,7 @@ export class People extends AbstractEntity<People> {
   reference_id: string;
 
   @Column()
-  reference_type: string;
+  reference_type: 'student' | 'employee';
 
   @Column({
     type: 'integer',
@@ -34,4 +34,7 @@ export class People extends AbstractEntity<People> {
     nullable: false,
   })
   religion: number;
+
+  // Buat nilai object reference
+  reference: any;
 }

@@ -17,7 +17,10 @@ export class EmployeeRepository extends AbstractRepository<Employee> {
   }
 
   async beforeCreate(entity: Employee): Promise<void> {
-    const existingEmployee = await this.findOne({ nip: entity.nip }, {}, false);
+    const existingEmployee = await this.findOne(
+      { nip: entity.nip },
+      { throwWhenNotFound: false },
+    );
     if (existingEmployee) {
       this.logger.warn(`Employee with NIP ${entity.nip} already exists`);
       throw new ConflictException('Employee with this NIP already exists');

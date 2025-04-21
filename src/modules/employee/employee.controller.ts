@@ -12,10 +12,8 @@ import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { FindAllEmployeeDto } from './dto/find-all-employee.dto';
-import { Public } from 'src/common/decorator/public.decorator';
 import { ResponseFormat } from 'src/common/decorator/response-format.decorator';
 
-@Public()
 @Controller('employee')
 export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) {}

@@ -27,7 +27,7 @@ export class PeopleController {
   @ResponseFormat({ actionType: 'read', entity: 'people' })
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.peopleService.findOneWithRelations(id);
+    return this.peopleService.findOneWithReference(id);
   }
 
   @ResponseFormat({ actionType: 'update', entity: 'people' })

@@ -1,8 +1,10 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, EntityManager } from 'typeorm';
 import { AbstractRepository } from 'src/common/database/abstract.repository';
 import { People } from './entities/people.entity';
+import { EmployeeRepository } from '../employee/employee.repository';
+import { StudentsRepository } from '../students/students.repository';
 
 @Injectable()
 export class PeopleRepository extends AbstractRepository<People> {
@@ -11,40 +13,40 @@ export class PeopleRepository extends AbstractRepository<People> {
   constructor(
     @InjectRepository(People)
     private readonly peopleRepository: Repository<People>,
+    private readonly employeeRepository: EmployeeRepository,
+    private readonly studentRepository: StudentsRepository,
     entityManager: EntityManager,
   ) {
     super(peopleRepository, entityManager);
   }
 
-  async findOneWithRelations(id: string): Promise<People> {
-    const people = await this.peopleRepository.findOne({
-      where: { id },
-      relations: ['student', 'employee'],
-    });
+  async findOneWithReference(id: string) {
+    const people = await super.findOne({ id });
+    if (people) {
+      // Manual morphing, soalnya typeorm nggak support polymorphic relation
+      const referenceId = people.reference_id;
+      const referenceType = people.reference_type;
 
-    if (!people) {
-      throw new NotFoundException('People not found');
+      if (referenceType === 'employee') {
+        people.reference = await this.employeeRepository.findOne(
+          {
+            id: referenceId,
+          },
+          {
+            throwWhenNotFound: false,
+          },
+        );
+      } else if (referenceType === 'student') {
+        people.reference = await this.studentRepository.findOne(
+          {
+            id: referenceId,
+          },
+          {
+            throwWhenNotFound: false,
+          },
+        );
+      }
     }
-
     return people;
   }
 }
-
-// import { Injectable, Logger } from '@nestjs/common';
-// import { InjectRepository } from '@nestjs/typeorm';
-// import { AbstractRepository } from 'src/common/database/abstract.repository';
-// import { EntityManager, Repository } from 'typeorm';
-// import { People } from './entities/people.entity';
-
-// @Injectable()
-// export class PeopleRepository extends AbstractRepository<People> {
-//   protected logger: Logger = new Logger(People.name);
-
-//   constructor(
-//     @InjectRepository(People)
-//     peopleRepository: Repository<People>,
-//     entityManager: EntityManager,
-//   ) {
-//     super(peopleRepository, entityManager);
-//   }
-// }
