@@ -1,6 +1,6 @@
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { UserRepository } from '../user/user.repository';
-import { RegisterDto } from './dto/register.dto';
+import { CreateUserDto } from '../user/dto/create-user.dto.';
 import { compare, hash } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import jwtConfig from 'src/config/jwt.config';
@@ -16,9 +16,7 @@ export class AuthService {
     private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
   ) {}
 
-  async register(registerDto: RegisterDto) {
-    console.log(registerDto);
-
+  async register(registerDto: CreateUserDto) {
     try {
       const hashedPassword = await hash(registerDto.password, 10);
       const user = await this.userRepository.create({

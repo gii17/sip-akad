@@ -1,13 +1,13 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AbstractRepostory } from 'src/common/database/abstract.repository';
+import { AbstractRepository } from 'src/common/database/abstract.repository';
 import { EntityManager, Repository } from 'typeorm';
 import { StudentPeriodic } from './entities/student-periodic.entity';
 import { CreateStudentPeriodicDto } from './dto/create-student-periodic.dto';
 import { SummaryRepository } from '../summaries/summary.repository';
 
 @Injectable()
-export class StudenPeriodicsRepository extends AbstractRepostory<StudentPeriodic> {
+export class StudenPeriodicsRepository extends AbstractRepository<StudentPeriodic> {
   protected logger: Logger = new Logger(StudenPeriodicsRepository.name);
 
   constructor(

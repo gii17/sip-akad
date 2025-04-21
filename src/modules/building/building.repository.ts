@@ -5,13 +5,13 @@ import {
   Logger,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AbstractRepostory } from 'src/common/database/abstract.repository';
+import { AbstractRepository } from 'src/common/database/abstract.repository';
 import { EntityManager, Repository, SelectQueryBuilder } from 'typeorm';
 import { Building } from './entities/building.entity';
 import { FindAllBuildingDto } from './dto/find-all-building.dto';
 
 @Injectable()
-export class BuildingRepository extends AbstractRepostory<Building> {
+export class BuildingRepository extends AbstractRepository<Building> {
   protected logger: Logger = new Logger(BuildingRepository.name);
 
   constructor(
@@ -23,8 +23,8 @@ export class BuildingRepository extends AbstractRepostory<Building> {
   }
 
   selectFindAll(
-      FindAllBuildingDto: FindAllBuildingDto,
-    ): SelectQueryBuilder<Building> {
-      return this.buildingRepository.createQueryBuilder('building');
-    }
+    FindAllBuildingDto: FindAllBuildingDto,
+  ): SelectQueryBuilder<Building> {
+    return this.buildingRepository.createQueryBuilder('building');
+  }
 }

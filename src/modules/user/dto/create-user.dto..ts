@@ -6,9 +6,9 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-import { TRole } from '../interface/auth.interface';
+import { TRole } from '../../auth/interface/auth.interface';
 
-export class RegisterDto {
+export class CreateUserDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()

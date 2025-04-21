@@ -1,12 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AbstractRepostory } from 'src/common/database/abstract.repository';
+import { AbstractRepository } from 'src/common/database/abstract.repository';
 import { EntityManager, Repository, SelectQueryBuilder } from 'typeorm';
 import { ScheduleDetail } from './entities/schedule_detail.entity';
 import { FindAllScheduleDetailDto } from './dto/find-all-schedule-detail.dto';
 
 @Injectable()
-export class ScheduleDetailRepository extends AbstractRepostory<ScheduleDetail> {
+export class ScheduleDetailRepository extends AbstractRepository<ScheduleDetail> {
   protected logger: Logger = new Logger(ScheduleDetailRepository.name);
 
   constructor(

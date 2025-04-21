@@ -1,6 +1,5 @@
 import { AbstractEntity } from 'src/common/database/abstract.entity';
-import { Column, Entity, OneToOne } from 'typeorm';
-import { People } from 'src/modules/peoples/entities/people.entity';
+import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'employees' })
 export class Employee extends AbstractEntity<Employee> {
@@ -15,7 +14,4 @@ export class Employee extends AbstractEntity<Employee> {
 
   @Column({ type: 'smallint', nullable: false })
   status: number;
-
-  @OneToOne(() => People, (people) => people.employee)
-  people: People;
 }

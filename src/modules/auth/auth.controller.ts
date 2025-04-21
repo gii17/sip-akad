@@ -7,7 +7,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { RegisterDto } from './dto/register.dto';
+import { CreateUserDto } from '../user/dto/create-user.dto.';
 import { LocalAuthGuard } from './guard/local-auth.guard';
 import { User } from 'src/common/decorator/user.decorator';
 import { IUser } from './interface/auth.interface';
@@ -24,7 +24,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('register')
   @ResponseFormat({ message: 'Register success' })
-  register(@Body() registerDto: RegisterDto) {
+  register(@Body() registerDto: CreateUserDto) {
     return this.authService.register(registerDto);
   }
 

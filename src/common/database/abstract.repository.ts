@@ -10,7 +10,7 @@ import {
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { AbstractFindAllDto } from '../dto/abstract-find-all.dto';
 
-export abstract class AbstractRepostory<T extends AbstractEntity<T>> {
+export abstract class AbstractRepository<T extends AbstractEntity<T>> {
   protected abstract readonly logger: Logger;
   protected readonly tableName: string;
 
@@ -20,6 +20,16 @@ export abstract class AbstractRepostory<T extends AbstractEntity<T>> {
   ) {
     const tableName = entityRepository.metadata.tableName;
     this.tableName = tableName.charAt(0).toUpperCase() + tableName.slice(1);
+  }
+
+  // buat create instance baru yang entity manager dari database transaction
+  factory(entityManager: EntityManager): this {
+    const repository = entityManager.getRepository<T>(
+      this.entityRepository.target,
+    );
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
+    return new (this.constructor as any)(repository, entityManager);
   }
 
   // buat validasi sebelum create
@@ -101,4 +111,16 @@ export abstract class AbstractRepostory<T extends AbstractEntity<T>> {
   }
 
   // TODO: autocomplete method
+  async firstOrCreate(
+    where: FindOptionsWhere<T>,
+    data: Partial<T>,
+  ): Promise<T> {
+    const entity = await this.findOne(where, {}, false);
+
+    if (entity) {
+      return entity;
+    }
+
+    return this.create(data);
+  }
 }

@@ -1,11 +1,11 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, EntityManager } from 'typeorm';
-import { AbstractRepostory } from 'src/common/database/abstract.repository';
+import { AbstractRepository } from 'src/common/database/abstract.repository';
 import { People } from './entities/people.entity';
 
 @Injectable()
-export class PeopleRepository extends AbstractRepostory<People> {
+export class PeopleRepository extends AbstractRepository<People> {
   protected logger: Logger = new Logger(PeopleRepository.name);
 
   constructor(
@@ -32,12 +32,12 @@ export class PeopleRepository extends AbstractRepostory<People> {
 
 // import { Injectable, Logger } from '@nestjs/common';
 // import { InjectRepository } from '@nestjs/typeorm';
-// import { AbstractRepostory } from 'src/common/database/abstract.repository';
+// import { AbstractRepository } from 'src/common/database/abstract.repository';
 // import { EntityManager, Repository } from 'typeorm';
 // import { People } from './entities/people.entity';
 
 // @Injectable()
-// export class PeopleRepository extends AbstractRepostory<People> {
+// export class PeopleRepository extends AbstractRepository<People> {
 //   protected logger: Logger = new Logger(People.name);
 
 //   constructor(

@@ -1,13 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AbstractRepostory } from 'src/common/database/abstract.repository';
+import { AbstractRepository } from 'src/common/database/abstract.repository';
 import { EntityManager, Repository } from 'typeorm';
 import { Summary } from './entities/summary.entity';
 import { CreateSummaryDto } from './dto/create-summary.dto';
 import { StudentsRepository } from '../students/students.repository';
 
 @Injectable()
-export class SummaryRepository extends AbstractRepostory<Summary> {
+export class SummaryRepository extends AbstractRepository<Summary> {
   protected logger: Logger = new Logger(SummaryRepository.name);
 
   constructor(

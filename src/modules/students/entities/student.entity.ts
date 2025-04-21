@@ -1,6 +1,5 @@
 import { AbstractEntity } from 'src/common/database/abstract.entity';
-import { Column, Entity, OneToOne } from 'typeorm';
-import { People } from 'src/modules/peoples/entities/people.entity';
+import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'students' })
 export class Students extends AbstractEntity<Students> {
@@ -21,7 +20,4 @@ export class Students extends AbstractEntity<Students> {
 
   @Column({ type: 'integer', nullable: false })
   semester: number;
-
-  @OneToOne(() => People, (people) => people.student)
-  people: People;
 }

@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsDate,
@@ -8,6 +9,7 @@ import {
 } from 'class-validator';
 
 export class CreatePeopleDto {
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   name: string;
@@ -20,19 +22,22 @@ export class CreatePeopleDto {
   @IsNotEmpty()
   reference_type: string;
 
+  @ApiProperty()
   @IsNumber()
   @IsNotEmpty()
   sex: number;
 
+  @ApiProperty()
   @IsDateString()
-  @Type(() => Date)
   @IsNotEmpty()
-  dob: string;
+  dob: Date;
 
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   location: string;
 
+  @ApiProperty()
   @IsNumber()
   @IsNotEmpty()
   religion: number;
